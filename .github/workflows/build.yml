@@ -55,8 +55,3 @@ jobs:
         run: |
           cd build/tests
           ctest -C ${{ matrix.build_type }} --output-on-failure
-      - uses: actions/upload-artifact@v2
-        if: matrix.build_type == 'Release'
-        with:
-          name: proxyfmu
-          path: build/bin/proxyfmu*
