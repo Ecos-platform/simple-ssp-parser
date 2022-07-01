@@ -10,6 +10,6 @@ const std::string sspArchive = "../folder/mySystem.ssp";
 SystemStructureDescription desc = parse_ssp(sspArchive);
 
 // Non-zipped folder
-const std::string sspArchive = "../someFolder";
-SystemStructureDescription desc = parse_ssp(sspArchive);
+const std::string sspFolder = "../someFolder";
+SystemStructureDescription desc = parse_ssp(sspFolder);
 ```
