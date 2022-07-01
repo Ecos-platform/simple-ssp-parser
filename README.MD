@@ -32,9 +32,9 @@ Then add a dependency to: </br>
 
 // Zipped .ssp archive
 const std::string sspArchive = "../folder/mySystem.ssp";
-SystemStructureDescription desc = parse_ssp(sspArchive);
+SystemStructureDescription desc(sspArchive);
 
 // Non-zipped folder
 const std::string sspFolder = "../someFolder";
-SystemStructureDescription desc = parse_ssp(sspFolder);
+SystemStructureDescription desc(sspFolder);
 ```
