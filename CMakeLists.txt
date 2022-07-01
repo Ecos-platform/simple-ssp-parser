@@ -7,7 +7,7 @@ message("Current ${PROJECT_NAME} version: ${CMAKE_PROJECT_VERSION}\n")
 # Build settings
 # ==============================================================================
 
-option(SSP_BUILD_TESTS "Build tests" ON)
+option(SSP_BUILD_TESTS "Build tests" OFF)
 
 
 # ==============================================================================
