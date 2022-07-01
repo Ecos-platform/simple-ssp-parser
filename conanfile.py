@@ -4,7 +4,7 @@ from os import path
 
 class SSPConan(ConanFile):
     name = "simple-ssp-parser"
-    author = "OSP"
+    author = "NTNU Aalesund"
     license = "MIT"
     exports = "version.txt"
     scm = {
@@ -21,9 +21,6 @@ class SSPConan(ConanFile):
 
     def set_version(self):
         self.version = tools.load(path.join(self.recipe_folder, "version.txt")).strip()
-
-    def imports(self):
-        self.copy("proxyfmu*", dst="bin", src="bin", keep_path=False)
 
     def configure_cmake(self):
         cmake = CMake(self)

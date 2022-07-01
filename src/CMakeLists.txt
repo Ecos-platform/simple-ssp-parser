@@ -1,5 +1,10 @@
 set(publicHeaderDir ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
+
+# ==============================================================================
+# public headers
+# ==============================================================================
+
 set(publicHeaders
         "ssp/ssp_parser.hpp"
         )
@@ -8,6 +13,11 @@ set(publicHeadersFull)
 foreach (header IN LISTS commonPublicHeaders)
     list(APPEND commonPublicHeadersFull "${publicHeaderDir}/${header}")
 endforeach ()
+
+
+# ==============================================================================
+# private headers
+# ==============================================================================
 
 set(privateHeaders
 
@@ -18,10 +28,19 @@ set(privateHeaders
 
         )
 
+
+# ==============================================================================
+# sources
+# ==============================================================================
+
 set(sources
         "ssp/ssp_parser.cpp"
         )
 
+
+# ==============================================================================
+# targets
+# ==============================================================================
 
 add_library(ssp ${sources} ${publicHeadersFull})
 target_compile_features(ssp PUBLIC "cxx_std_17")
