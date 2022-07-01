@@ -35,3 +35,19 @@ target_link_libraries(ssp PUBLIC CONAN_PKG::pugixml PRIVATE CONAN_PKG::libzip)
 if (UNIX)
     target_link_libraries(ssp INTERFACE stdc++fs)
 endif ()
+
+
+
+# ==============================================================================
+# Installation rules
+# ==============================================================================
+
+install(
+        TARGETS ssp
+        EXPORT "${SSP_EXPORT_TARGET}"
+        ${SSP_INSTALL_DESTINATIONS}
+)
+install(
+        DIRECTORY "${publicHeaderDir}/ssp"
+        DESTINATION "${SSP_HEADER_INSTALL_DIR}"
+)
