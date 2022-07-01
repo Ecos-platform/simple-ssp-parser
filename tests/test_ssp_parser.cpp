@@ -62,7 +62,6 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     REQUIRE(initialValues.at("chassis").size() == 3);
     REQUIRE(initialValues.count("wheel"));
     REQUIRE(initialValues.at("wheel").size() == 3);
-
 }
 
 } // namespace

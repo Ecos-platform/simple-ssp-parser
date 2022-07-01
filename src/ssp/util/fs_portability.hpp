@@ -6,8 +6,9 @@
 
 #    include <filesystem>
 
-namespace ssp {
-    namespace fs = std::filesystem;
+namespace ssp
+{
+namespace fs = std::filesystem;
 }
 #else
 #    include <experimental/filesystem>
