@@ -11,7 +11,7 @@ namespace ssp {
 }
 #else
 #    include <experimental/filesystem>
-namespace vico
+namespace ssp
 {
 namespace fs = std::experimental::filesystem;
 }
