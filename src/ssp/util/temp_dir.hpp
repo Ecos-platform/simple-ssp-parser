@@ -24,8 +24,8 @@ namespace ssp {
         const fs::path path_;
 
     public:
-        explicit temp_dir(const std::string &name) : path_(
-                fs::temp_directory_path() /= "vico_" + name + "_" + generate_simple_id()) {
+        explicit temp_dir(const std::string &name)
+                : path_(fs::temp_directory_path() /= "vico_" + name + "_" + generate_simple_id()) {
             fs::create_directories(path_);
         }
 

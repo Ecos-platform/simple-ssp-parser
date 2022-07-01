@@ -5,6 +5,7 @@
 
 #include "util/temp_dir.hpp"
 #include "util/unzipper.hpp"
+#include "util/fs_portability.hpp"
 
 using namespace ssp;
 
@@ -154,7 +155,7 @@ Elements parse_elements(const fs::path &dir, const pugi::xml_node &node) {
 
 std::vector<Annotation> parse_annotations(const pugi::xml_node &node) {
     std::vector<Annotation> annotations;
-    for (const auto& annotationNode : node) {
+    for (const auto &annotationNode: node) {
         const auto type = annotationNode.attribute("type").as_string();
         annotations.emplace_back(Annotation{type, annotationNode});
     }
