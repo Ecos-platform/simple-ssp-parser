@@ -124,7 +124,7 @@ public:
     const System& system;
     const std::optional<DefaultExperiment>& defaultExperiment;
 
-    explicit SystemStructureDescription(const std::string& path);
+    explicit SystemStructureDescription(const fs::path& path);
 
     [[nodiscard]] fs::path file(const fs::path& source) const;
 

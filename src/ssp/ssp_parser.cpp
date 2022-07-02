@@ -104,12 +104,12 @@ parse_parameter_bindings(const fs::path& dir, const pugi::xml_node& node)
         if (parameterValues) {
             parameterSetNode = parameterValues.child("ssv:ParameterSet");
         } else {
-            auto source = parameterBindingNode.attribute("source").as_string();
+            const auto source = parameterBindingNode.attribute("source").as_string();
             doc = std::make_unique<pugi::xml_document>();
             pugi::xml_parse_result result = doc->load_file(fs::path(dir / source).c_str());
             if (!result) {
                 throw std::runtime_error(
-                    "Unable to parse '" + absolute(fs::path(dir / source)).string() + "': " + result.description());
+                    "Unable to parse '" + fs::absolute(fs::path(dir / source)).string() + "': " + result.description());
             }
             parameterSetNode = doc->child("ssv:ParameterSet");
         }
@@ -217,11 +217,11 @@ struct SystemStructureDescription::Impl
     explicit Impl(const fs::path& path)
     {
 
-        if (!exists(path)) {
+        if (!fs::exists(path)) {
             throw std::runtime_error("No such file: " + absolute(path).string());
         }
 
-        if (is_directory(path)) {
+        if (fs::is_directory(path)) {
             dir = path;
         } else {
             tmp = std::make_unique<temp_dir>("ssp");
@@ -232,7 +232,7 @@ struct SystemStructureDescription::Impl
         pugi::xml_parse_result result = doc_.load_file(fs::path(dir / "SystemStructure.ssd").c_str());
         if (!result) {
             throw std::runtime_error(
-                "Unable to parse '" + absolute(fs::path(dir / "SystemStructure.ssd")).string() + "': " +
+                "Unable to parse '" + fs::absolute(fs::path(dir / "SystemStructure.ssd")).string() + "': " +
                 result.description());
         }
 
@@ -267,7 +267,7 @@ private:
     std::unique_ptr<temp_dir> tmp = nullptr;
 };
 
-SystemStructureDescription::SystemStructureDescription(const std::string& path)
+SystemStructureDescription::SystemStructureDescription(const fs::path& path)
     : pimpl_(new Impl(path))
     , name(pimpl_->name)
     , version(pimpl_->version)
