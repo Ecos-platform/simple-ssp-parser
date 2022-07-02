@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 
-#include <ssp/ssp_parser.hpp>
+#include <ssp/ssp.hpp>
 
 using namespace ssp;
 

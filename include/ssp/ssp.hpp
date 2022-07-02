@@ -1,6 +1,6 @@
 
-#ifndef SSP_SSP_PARSER_HPP
-#define SSP_SSP_PARSER_HPP
+#ifndef SSP_SSP_HPP
+#define SSP_SSP_HPP
 
 
 #include "util/fs_portability.hpp"
@@ -134,4 +134,4 @@ public:
 } // namespace ssp
 
 
-#endif // SSP_SSP_PARSER_HPP
+#endif // SSP_SSP_HPP

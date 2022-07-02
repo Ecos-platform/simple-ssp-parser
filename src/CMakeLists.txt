@@ -35,7 +35,7 @@ set(privateHeaders
 # ==============================================================================
 
 set(sources
-        "ssp/ssp_parser.cpp"
+        "ssp/ssp.cpp"
         )
 
 

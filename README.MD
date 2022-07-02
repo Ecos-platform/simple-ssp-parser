@@ -28,7 +28,7 @@ Then add a dependency to: </br>
 
 ### Usage
 ```cpp
-#include <ssp/ssp_parser.hpp>
+#include <ssp/ssp.hpp>
 
 // Zipped .ssp archive
 const std::string sspArchive = "../folder/mySystem.ssp";

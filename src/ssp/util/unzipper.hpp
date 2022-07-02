@@ -31,7 +31,7 @@ bool unzip(const fs::path& zip_file, const fs::path& tmp_path)
     // clang-format on
 
     const int bufferSize = 1000;
-    std::vector<char> contents(sizeof(char) * bufferSize);
+    std::vector<char> contents(bufferSize);
     zip_int64_t sum;
     zip_int64_t len;
     for (int i = 0; i < zip_get_num_entries(za, 0); i++) {

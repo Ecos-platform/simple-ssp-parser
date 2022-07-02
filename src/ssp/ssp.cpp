@@ -1,9 +1,8 @@
 
-#include "ssp/ssp_parser.hpp"
-
 #include "util/temp_dir.hpp"
 #include "util/unzipper.hpp"
 
+#include "ssp/ssp.hpp"
 #include "ssp/util/fs_portability.hpp"
 
 #include <pugixml.hpp>

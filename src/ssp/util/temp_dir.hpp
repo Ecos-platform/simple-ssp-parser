@@ -44,7 +44,7 @@ public:
         std::error_code status;
         fs::remove_all(path_, status);
         if (status) {
-            std::cerr << "Failed to remove temp folder '" << path_.string() << "' " << status.message()
+            std::cerr << "Failed to remove temp folder '" << path_.string() << "': " << status.message()
                       << std::endl;
         }
     }
