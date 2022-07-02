@@ -62,6 +62,7 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     REQUIRE(initialValues.at("chassis").size() == 3);
     REQUIRE(initialValues.count("wheel"));
     REQUIRE(initialValues.at("wheel").size() == 3);
+
 }
 
 } // namespace
@@ -71,6 +72,11 @@ TEST_CASE("test_ssp_parser_archive")
     const auto quarterTruckArchive = "../data/ssp/quarter_truck/quarter-truck.ssp";
     SystemStructureDescription desc(quarterTruckArchive);
     checkSystemStructure(desc);
+
+    const auto& groundComponent = desc.system.elements.components.at("ground");
+    const auto groundFmu = desc.file(groundComponent.source);
+    REQUIRE(fs::exists(groundFmu));
+    REQUIRE(groundFmu.extension().string() == ".fmu");
 }
 
 TEST_CASE("test_ssp_parser_folder")

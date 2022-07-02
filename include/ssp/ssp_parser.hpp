@@ -3,6 +3,8 @@
 #define SSP_SSP_PARSER_HPP
 
 
+#include "util/fs_portability.hpp"
+
 #include <pugixml.hpp>
 
 #include <memory>
@@ -123,6 +125,8 @@ public:
     const std::optional<DefaultExperiment>& defaultExperiment;
 
     explicit SystemStructureDescription(const std::string& path);
+
+    [[nodiscard]] fs::path file(const fs::path& source) const;
 
     ~SystemStructureDescription();
 };

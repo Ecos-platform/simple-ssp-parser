@@ -7,6 +7,8 @@ set(publicHeaderDir ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
 set(publicHeaders
         "ssp/ssp_parser.hpp"
+
+        "util/fs_portability.hpp"
         )
 
 set(publicHeadersFull)
@@ -21,7 +23,6 @@ endforeach ()
 
 set(privateHeaders
 
-        "ssp/util/fs_portability.hpp"
         "ssp/util/temp_dir.hpp"
         "ssp/util/random.hpp"
         "ssp/util/unzipper.hpp"

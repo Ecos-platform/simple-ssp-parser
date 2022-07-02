@@ -1,9 +1,10 @@
 
 #include "ssp/ssp_parser.hpp"
 
-#include "util/fs_portability.hpp"
 #include "util/temp_dir.hpp"
 #include "util/unzipper.hpp"
+
+#include "ssp/util/fs_portability.hpp"
 
 #include <pugixml.hpp>
 
@@ -220,7 +221,6 @@ struct SystemStructureDescription::Impl
             throw std::runtime_error("No such file: " + absolute(path).string());
         }
 
-        fs::path dir;
         if (is_directory(path)) {
             dir = path;
         } else {
@@ -254,9 +254,15 @@ struct SystemStructureDescription::Impl
         }
     }
 
+    [[nodiscard]] fs::path file(const fs::path& source) const
+    {
+        return dir / source;
+    }
+
     ~Impl() = default;
 
 private:
+    fs::path dir;
     pugi::xml_document doc_;
     std::unique_ptr<temp_dir> tmp = nullptr;
 };
@@ -269,5 +275,9 @@ SystemStructureDescription::SystemStructureDescription(const std::string& path)
     , defaultExperiment(pimpl_->defaultExperiment)
 { }
 
+fs::path ssp::SystemStructureDescription::file(const fs::path& source) const
+{
+    return pimpl_->file(source);
+}
 
 SystemStructureDescription::~SystemStructureDescription() = default;

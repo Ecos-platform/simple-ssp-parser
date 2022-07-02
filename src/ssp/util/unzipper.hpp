@@ -2,8 +2,9 @@
 #ifndef SSP_UNZIPPER_HPP
 #define SSP_UNZIPPER_HPP
 
-#include "fs_portability.hpp"
 #include "temp_dir.hpp"
+
+#include "ssp/util/fs_portability.hpp"
 
 #include <zip.h>
 
