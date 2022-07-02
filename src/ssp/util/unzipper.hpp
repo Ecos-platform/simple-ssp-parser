@@ -2,8 +2,6 @@
 #ifndef SSP_UNZIPPER_HPP
 #define SSP_UNZIPPER_HPP
 
-#include "temp_dir.hpp"
-
 #include "ssp/util/fs_portability.hpp"
 
 #include <zip.h>
@@ -68,16 +66,6 @@ bool unzip(const fs::path& zip_file, const fs::path& tmp_path)
     zip_close(za);
 
     return true;
-}
-
-std::optional<temp_dir> unzip(const fs::path& zip_file)
-{
-    auto temp = temp_dir("temp");
-    if (unzip(zip_file, temp.path())) {
-        return std::move(temp);
-    } else {
-        return std::nullopt;
-    }
 }
 
 } // namespace ssp

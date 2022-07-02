@@ -225,7 +225,9 @@ struct SystemStructureDescription::Impl
         } else {
             tmp = std::make_unique<temp_dir>("ssp");
             dir = tmp->path();
-            unzip(path, dir);
+            if (!unzip(path, dir)) {
+                throw std::runtime_error("Failed to unzip contents..");
+            }
         }
 
         pugi::xml_parse_result result = doc_.load_file(fs::path(dir / "SystemStructure.ssd").c_str());
