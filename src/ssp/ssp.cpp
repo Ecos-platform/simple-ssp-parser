@@ -41,22 +41,23 @@ Connector parse_connector(const pugi::xml_node& node)
     const auto connectorKind = node.attribute("kind").as_string();
     Connector connector = {connectorName, connectorKind};
     if (node.child("ssc:Real")) {
-        connector.type.real = {};
+        connector.type.real = 0;
     } else if (node.child("ssc:Integer")) {
-        connector.type.integer = {};
+        connector.type.integer = 0;
     } else if (node.child("ssc:Boolean")) {
-        connector.type.boolean = {};
+        connector.type.boolean = false;
     } else if (node.child("ssc:String")) {
-        connector.type.string = {};
+        connector.type.string = "";
     }
     return connector;
 }
 
-std::vector<Connector> parse_connectors(const pugi::xml_node& node)
+std::unordered_map<std::string, Connector> parse_connectors(const pugi::xml_node& node)
 {
-    std::vector<Connector> connectors;
+    std::unordered_map<std::string, Connector> connectors;
     for (const auto c : node) {
-        connectors.emplace_back(parse_connector(c));
+        const auto connector = parse_connector(c);
+        connectors.emplace(connector.name, connector);
     }
     return connectors;
 }

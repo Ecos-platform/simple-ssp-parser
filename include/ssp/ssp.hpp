@@ -20,12 +20,27 @@ namespace ssp
 struct Type
 {
 
-    std::optional<std::string> unit;
-
     std::optional<double> real;
     std::optional<int> integer;
     std::optional<bool> boolean;
     std::optional<std::string> string;
+
+    std::optional<std::string> unit;
+
+    [[nodiscard]] std::string typeName() const
+    {
+        if (isReal()) {
+            return "Real";
+        } else if (isInteger()) {
+            return "Integer";
+        } else if (isBool()) {
+            return "Boolean";
+        } else if (isString()) {
+            return "String";
+        } else {
+            throw std::runtime_error("Invalid type!");
+        }
+    }
 
     [[nodiscard]] bool isReal() const { return real.has_value(); }
 
@@ -34,6 +49,11 @@ struct Type
     [[nodiscard]] bool isBool() const { return boolean.has_value(); }
 
     [[nodiscard]] bool isString() const { return string.has_value(); }
+
+    bool operator==(const Type& other) const
+    {
+        return typeName() == other.typeName();
+    }
 };
 
 struct Parameter
@@ -59,7 +79,7 @@ struct Component
 {
     std::string name;
     std::string source;
-    std::vector<Connector> connectors;
+    std::unordered_map<std::string, Connector> connectors;
     std::unordered_map<std::string, ParameterSet> parameterSets;
 };
 

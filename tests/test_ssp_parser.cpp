@@ -27,22 +27,24 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     const Component& chassis = components.at("chassis");
     CHECK(chassis.source == "resources/chassis.fmu");
     REQUIRE(chassis.connectors.size() == 2);
-    CHECK(chassis.connectors[0].name == "p.e");
-    CHECK(chassis.connectors[0].kind == "output");
-    CHECK(!chassis.connectors[0].type.unit.has_value());
-    CHECK(!chassis.connectors[0].type.isReal());
-    CHECK(chassis.connectors[1].name == "p.f");
-    CHECK(chassis.connectors[1].kind == "input");
-    CHECK(!chassis.connectors[1].type.unit.has_value());
-    CHECK(!chassis.connectors[1].type.isReal());
+    CHECK(chassis.connectors.at("p.e").name == "p.e");
+    CHECK(chassis.connectors.at("p.e").kind == "output");
+    CHECK(!chassis.connectors.at("p.e").type.unit.has_value());
+    CHECK(chassis.connectors.at("p.e").type.isReal());
+    CHECK(chassis.connectors.at("p.f").name == "p.f");
+    CHECK(chassis.connectors.at("p.f").kind == "input");
+    CHECK(!chassis.connectors.at("p.f").type.unit.has_value());
+    CHECK(chassis.connectors.at("p.f").type.isReal());
 
     const Component& wheel = components.at("wheel");
     CHECK(wheel.source == "resources/wheel.fmu");
     REQUIRE(wheel.connectors.size() == 4);
-    CHECK(wheel.connectors[0].name == "p.f");
-    CHECK(wheel.connectors[1].name == "p1.e");
-    CHECK(wheel.connectors[2].name == "p.e");
-    CHECK(wheel.connectors[3].name == "p1.f");
+    CHECK(wheel.connectors.at("p.f").name == "p.f");
+    CHECK(wheel.connectors.at("p1.e").name == "p1.e");
+    CHECK(wheel.connectors.at("p.e").name == "p.e");
+    CHECK(wheel.connectors.at("p1.f").name == "p1.f");
+
+    CHECK(wheel.connectors.at("p.e").type == wheel.connectors.at("p1.f").type);
 
     const auto& wheelParameters = wheel.parameterSets;
     REQUIRE(wheelParameters.at("initialValues").parameters.size() == 3);
