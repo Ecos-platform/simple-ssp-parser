@@ -60,10 +60,10 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     REQUIRE(system.elements.parameterSets.count("initialValues"));
     const auto& initialValues = system.elements.parameterSets.at("initialValues");
     REQUIRE(initialValues.size() == 2);
-    REQUIRE(initialValues.count("chassis"));
-    REQUIRE(initialValues.at("chassis").size() == 3);
-    REQUIRE(initialValues.count("wheel"));
-    REQUIRE(initialValues.at("wheel").size() == 3);
+    REQUIRE(initialValues.count(chassis));
+    REQUIRE(initialValues.at(chassis).size() == 3);
+    REQUIRE(initialValues.count(wheel));
+    REQUIRE(initialValues.at(wheel).size() == 3);
 
 }
 

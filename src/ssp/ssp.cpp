@@ -154,7 +154,7 @@ Elements parse_elements(const fs::path& dir, const pugi::xml_node& node)
     // collect parameterSets by name
     for (const auto& [componentName, component] : elements.components) {
         for (const auto& [parameterSetName, parameterSet] : component.parameterSets) {
-            auto& list = elements.parameterSets[parameterSetName][componentName];
+            auto& list = elements.parameterSets[parameterSetName][component];
             list.insert(list.end(), parameterSet.parameters.begin(), parameterSet.parameters.end());
         }
     }

@@ -10,6 +10,7 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <map>
 #include <unordered_map>
 #include <vector>
 
@@ -81,13 +82,18 @@ struct Component
     std::string source;
     std::unordered_map<std::string, Connector> connectors;
     std::unordered_map<std::string, ParameterSet> parameterSets;
+
+    bool operator<(const Component& other) const
+    {
+        return name < other.name;
+    }
 };
 
 
 struct Elements
 {
     std::unordered_map<std::string, Component> components;
-    std::unordered_map<std::string, std::unordered_map<std::string, std::vector<Parameter>>> parameterSets;
+    std::unordered_map<std::string, std::map<Component, std::vector<Parameter>>> parameterSets;
 };
 
 struct LinearTransformation
