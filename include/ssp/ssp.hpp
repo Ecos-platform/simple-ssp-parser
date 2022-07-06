@@ -7,11 +7,12 @@
 
 #include <pugixml.hpp>
 
+#include <map>
 #include <memory>
 #include <optional>
 #include <string>
-#include <map>
 #include <unordered_map>
+#include <variant>
 #include <vector>
 
 
@@ -20,40 +21,27 @@ namespace ssp
 
 struct Type
 {
-
-    std::optional<double> real;
-    std::optional<int> integer;
-    std::optional<bool> boolean;
-    std::optional<std::string> string;
-
     std::optional<std::string> unit;
+    std::variant<double, int, bool, std::string> value;
 
     [[nodiscard]] std::string typeName() const
     {
-        if (isReal()) {
+        if (value.index() == 0) {
             return "Real";
-        } else if (isInteger()) {
+        } else if (value.index() == 1) {
             return "Integer";
-        } else if (isBool()) {
+        } else if (value.index() == 2) {
             return "Boolean";
-        } else if (isString()) {
+        } else if (value.index() == 3) {
             return "String";
         } else {
             throw std::runtime_error("Invalid type!");
         }
     }
 
-    [[nodiscard]] bool isReal() const { return real.has_value(); }
-
-    [[nodiscard]] bool isInteger() const { return integer.has_value(); }
-
-    [[nodiscard]] bool isBool() const { return boolean.has_value(); }
-
-    [[nodiscard]] bool isString() const { return string.has_value(); }
-
     bool operator==(const Type& other) const
     {
-        return typeName() == other.typeName();
+        return value.index() == other.value.index();
     }
 };
 

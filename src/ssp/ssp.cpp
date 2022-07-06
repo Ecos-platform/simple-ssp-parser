@@ -1,8 +1,9 @@
 
+#include "ssp/ssp.hpp"
+
 #include "util/temp_dir.hpp"
 #include "util/unzipper.hpp"
 
-#include "ssp/ssp.hpp"
 #include "ssp/util/fs_portability.hpp"
 
 #include <pugixml.hpp>
@@ -41,13 +42,13 @@ Connector parse_connector(const pugi::xml_node& node)
     const auto connectorKind = node.attribute("kind").as_string();
     Connector connector = {connectorName, connectorKind};
     if (node.child("ssc:Real")) {
-        connector.type.real = 0;
+        connector.type.value = 0.;
     } else if (node.child("ssc:Integer")) {
-        connector.type.integer = 0;
+        connector.type.value = 0;
     } else if (node.child("ssc:Boolean")) {
-        connector.type.boolean = false;
+        connector.type.value = false;
     } else if (node.child("ssc:String")) {
-        connector.type.string = "";
+        connector.type.value = "";
     }
     return connector;
 }
@@ -70,19 +71,19 @@ Parameter parse_parameter(const pugi::xml_node& node)
     if (node.child("ssv:Real")) {
         typeNode = node.child("ssv:Real");
         const auto value = typeNode.attribute("value").as_double();
-        parameter.type.real = value;
+        parameter.type.value = value;
     } else if (node.child("ssv:Integer")) {
         typeNode = node.child("ssv:Integer");
         const auto value = typeNode.child("ssv:Integer").attribute("value").as_int();
-        parameter.type.integer = value;
+        parameter.type.value = value;
     } else if (node.child("ssv:Boolean")) {
         typeNode = node.child("ssv:Boolean");
         const auto value = typeNode.child("ssv:Boolean").attribute("value").as_bool();
-        parameter.type.boolean = value;
+        parameter.type.value = value;
     } else if (node.child("ssv:String")) {
         typeNode = node.child("ssv:ssv:String");
         const auto value = typeNode.child("ssv:String").attribute("value").as_string();
-        parameter.type.string = value;
+        parameter.type.value = value;
     } else {
         throw std::runtime_error("Unknown XML node in ssv:Parameter encountered!");
     }

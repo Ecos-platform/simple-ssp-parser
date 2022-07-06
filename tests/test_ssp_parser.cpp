@@ -30,11 +30,11 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     CHECK(chassis.connectors.at("p.e").name == "p.e");
     CHECK(chassis.connectors.at("p.e").kind == "output");
     CHECK(!chassis.connectors.at("p.e").type.unit.has_value());
-    CHECK(chassis.connectors.at("p.e").type.isReal());
+    CHECK(chassis.connectors.at("p.e").type.typeName() == "Real");
     CHECK(chassis.connectors.at("p.f").name == "p.f");
     CHECK(chassis.connectors.at("p.f").kind == "input");
     CHECK(!chassis.connectors.at("p.f").type.unit.has_value());
-    CHECK(chassis.connectors.at("p.f").type.isReal());
+    CHECK(chassis.connectors.at("p.f").type.typeName() == "Real");
 
     const Component& wheel = components.at("wheel");
     CHECK(wheel.source == "resources/wheel.fmu");
@@ -64,7 +64,6 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
     REQUIRE(initialValues.at(chassis).size() == 3);
     REQUIRE(initialValues.count(wheel));
     REQUIRE(initialValues.at(wheel).size() == 3);
-
 }
 
 } // namespace
