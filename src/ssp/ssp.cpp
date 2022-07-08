@@ -223,19 +223,19 @@ struct SystemStructureDescription::Impl
         }
 
         if (fs::is_directory(path)) {
-            dir = path;
+            dir_ = path;
         } else {
-            tmp = std::make_unique<temp_dir>("ssp");
-            dir = tmp->path();
-            if (!unzip(path, dir)) {
+            tmp_ = std::make_unique<temp_dir>("ssp");
+            dir_ = tmp_->path();
+            if (!unzip(path, dir_)) {
                 throw std::runtime_error("Failed to unzip contents..");
             }
         }
 
-        pugi::xml_parse_result result = doc_.load_file(fs::path(dir / "SystemStructure.ssd").c_str());
+        pugi::xml_parse_result result = doc_.load_file(fs::path(dir_ / "SystemStructure.ssd").c_str());
         if (!result) {
             throw std::runtime_error(
-                "Unable to parse '" + fs::absolute(fs::path(dir / "SystemStructure.ssd")).string() + "': " +
+                "Unable to parse '" + fs::absolute(fs::path(dir_ / "SystemStructure.ssd")).string() + "': " +
                 result.description());
         }
 
@@ -249,7 +249,7 @@ struct SystemStructureDescription::Impl
         }
 
         const auto systemNode = root.child("ssd:System");
-        system = parse_system(dir, systemNode);
+        system = parse_system(dir_, systemNode);
 
         const auto defaultNode = root.child("ssd:DefaultExperiment");
         if (defaultNode) {
@@ -257,17 +257,22 @@ struct SystemStructureDescription::Impl
         }
     }
 
+    [[nodiscard]] fs::path dir() const
+    {
+        return dir_;
+    }
+
     [[nodiscard]] fs::path file(const fs::path& source) const
     {
-        return dir / source;
+        return dir_ / source;
     }
 
     ~Impl() = default;
 
 private:
-    fs::path dir;
+    fs::path dir_;
     pugi::xml_document doc_;
-    std::unique_ptr<temp_dir> tmp = nullptr;
+    std::unique_ptr<temp_dir> tmp_ = nullptr;
 };
 
 SystemStructureDescription::SystemStructureDescription(const fs::path& path)
@@ -281,6 +286,11 @@ SystemStructureDescription::SystemStructureDescription(const fs::path& path)
 fs::path ssp::SystemStructureDescription::file(const fs::path& source) const
 {
     return pimpl_->file(source);
+}
+
+fs::path ssp::SystemStructureDescription::dir() const
+{
+    return pimpl_->dir();
 }
 
 SystemStructureDescription::~SystemStructureDescription() = default;

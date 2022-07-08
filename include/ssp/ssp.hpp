@@ -140,6 +140,8 @@ public:
 
     explicit SystemStructureDescription(const fs::path& path);
 
+    [[nodiscard]] fs::path dir() const;
+
     [[nodiscard]] fs::path file(const fs::path& source) const;
 
     ~SystemStructureDescription();
