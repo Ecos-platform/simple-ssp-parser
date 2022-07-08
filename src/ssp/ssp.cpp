@@ -175,8 +175,8 @@ std::vector<Annotation> parse_annotations(const pugi::xml_node& node)
 
 DefaultExperiment parse_default_experiment(const pugi::xml_node& node)
 {
-    const auto start = node.attribute("start");
-    const auto stop = node.attribute("stop");
+    const auto start = node.attribute("startTime");
+    const auto stop = node.attribute("stopTime");
     DefaultExperiment ex;
     if (start) {
         ex.start = start.as_double();
