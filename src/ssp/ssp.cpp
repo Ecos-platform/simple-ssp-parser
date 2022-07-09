@@ -1,10 +1,10 @@
 
 #include "ssp/ssp.hpp"
 
-#include "util/temp_dir.hpp"
 #include "util/unzipper.hpp"
 
 #include "ssp/util/fs_portability.hpp"
+#include "ssp/util/temp_dir.hpp"
 
 #include <pugixml.hpp>
 
@@ -215,6 +215,10 @@ struct SystemStructureDescription::Impl
     System system;
     std::optional<DefaultExperiment> defaultExperiment;
 
+    fs::path dir_;
+    pugi::xml_document doc_;
+    std::shared_ptr<temp_dir> tmp_ = nullptr;
+
     explicit Impl(const fs::path& path)
     {
 
@@ -257,22 +261,12 @@ struct SystemStructureDescription::Impl
         }
     }
 
-    [[nodiscard]] fs::path dir() const
-    {
-        return dir_;
-    }
-
     [[nodiscard]] fs::path file(const fs::path& source) const
     {
         return dir_ / source;
     }
 
     ~Impl() = default;
-
-private:
-    fs::path dir_;
-    pugi::xml_document doc_;
-    std::unique_ptr<temp_dir> tmp_ = nullptr;
 };
 
 SystemStructureDescription::SystemStructureDescription(const fs::path& path)
@@ -290,7 +284,12 @@ fs::path ssp::SystemStructureDescription::file(const fs::path& source) const
 
 fs::path ssp::SystemStructureDescription::dir() const
 {
-    return pimpl_->dir();
+    return pimpl_->dir_;
+}
+
+std::shared_ptr<temp_dir> ssp::SystemStructureDescription::get_temp_dir()
+{
+    return pimpl_->tmp_;
 }
 
 SystemStructureDescription::~SystemStructureDescription() = default;

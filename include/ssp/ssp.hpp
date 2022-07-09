@@ -2,8 +2,8 @@
 #ifndef SSP_SSP_HPP
 #define SSP_SSP_HPP
 
-
 #include "util/fs_portability.hpp"
+#include "util/temp_dir.hpp"
 
 #include <pugixml.hpp>
 
@@ -143,6 +143,8 @@ public:
     [[nodiscard]] fs::path dir() const;
 
     [[nodiscard]] fs::path file(const fs::path& source) const;
+
+    std::shared_ptr<temp_dir> get_temp_dir();
 
     ~SystemStructureDescription();
 };
