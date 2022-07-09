@@ -23,10 +23,8 @@ endforeach ()
 # ==============================================================================
 
 set(privateHeaders
-
-        "ssp/util/random.hpp"
+        "ssp/util/uuid.hpp"
         "ssp/util/unzipper.hpp"
-
         )
 
 
@@ -37,6 +35,7 @@ set(privateHeaders
 set(sources
         "ssp/ssp.cpp"
         "ssp/util/temp_dir.cpp"
+        "ssp/util/unzipper.cpp"
         )
 
 

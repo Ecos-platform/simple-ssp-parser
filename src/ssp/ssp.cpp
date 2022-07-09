@@ -11,27 +11,49 @@
 using namespace ssp;
 
 
-Connection parse_connection(const pugi::xml_node& node)
+Connection parse_connection(
+    const pugi::xml_node& node,
+    const std::unordered_map<std::string, Component>& components)
 {
-    const auto startElement = node.attribute("startElement").as_string();
-    const auto startConnector = node.attribute("startConnector").as_string();
-    const auto endElement = node.attribute("endElement").as_string();
-    const auto endConnector = node.attribute("endConnector").as_string();
+    const std::string startElement = node.attribute("startElement").as_string();
+    const std::string startConnector = node.attribute("startConnector").as_string();
+    const std::string endElement = node.attribute("endElement").as_string();
+    const std::string endConnector = node.attribute("endConnector").as_string();
+
+    if (components.count(startElement)) {
+        const Component& c = components.at(startElement);
+        if (!c.connectors.count(startConnector)) {
+            throw std::runtime_error("No connector named: '" + startConnector + "' defined for element: '" + startElement + "'!");
+        }
+    } else {
+        throw std::runtime_error("No element named: " + startElement);
+    }
+    if (components.count(endElement)) {
+        const Component& c = components.at(startElement);
+        if (!c.connectors.count(startConnector)) {
+            throw std::runtime_error("No connector named: '" + endConnector + "' defined for element: '" + endElement + "'!");
+        }
+    } else {
+        throw std::runtime_error("No element named: " + startElement);
+    }
+
     Connection c = {startElement, startConnector, endElement, endConnector};
     const auto transformationNode = node.child("ssc:LinearTransformation");
     if (transformationNode) {
-        double factor = transformationNode.attribute("factor").as_double();
-        double offset = transformationNode.attribute("offset").as_double();
+        const double factor = transformationNode.attribute("factor").as_double();
+        const double offset = transformationNode.attribute("offset").as_double();
         c.linearTransformation = {factor, offset};
     }
     return c;
 }
 
-std::vector<Connection> parse_connections(const pugi::xml_node& node)
+std::vector<Connection> parse_connections(
+    const pugi::xml_node& node,
+    const std::unordered_map<std::string, Component>& components)
 {
     std::vector<Connection> connections;
     for (const auto c : node) {
-        connections.emplace_back(parse_connection(c));
+        connections.emplace_back(parse_connection(c, components));
     }
     return connections;
 }
@@ -201,7 +223,7 @@ System parse_system(const fs::path& dir, const pugi::xml_node& node)
     sys.elements = parse_elements(dir, elementsNode);
 
     const auto connectionsNode = node.child("ssd:Connections");
-    sys.connections = parse_connections(connectionsNode);
+    sys.connections = parse_connections(connectionsNode, sys.elements.components);
 
     return sys;
 }

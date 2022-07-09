@@ -1,7 +1,7 @@
 
 #include "ssp/util/temp_dir.hpp"
 
-#include "random.hpp"
+#include "uuid.hpp"
 
 #include "ssp/util/fs_portability.hpp"
 
@@ -10,25 +10,8 @@
 
 using namespace ssp;
 
-
-namespace
-{
-
-std::string generate_simple_id()
-{
-    const int len = 6;
-    std::string id;
-    fixed_range_random_generator rng(0, 9);
-    for (auto i = 0; i < len; i++) {
-        id += std::to_string(rng.next());
-    }
-    return id;
-}
-
-} // namespace
-
 temp_dir::temp_dir(const std::string& name)
-    : path_(fs::temp_directory_path() /= "vico_" + name + "_" + generate_simple_id())
+    : path_(fs::temp_directory_path() /= "vico_" + name + "_" + generate_uuid())
 {
     fs::create_directories(path_);
 }
