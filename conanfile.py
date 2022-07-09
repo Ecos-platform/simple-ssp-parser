@@ -16,7 +16,8 @@ class SSPConan(ConanFile):
     generators = "cmake"
     requires = (
         "pugixml/1.12.1",
-        "libzip/1.8.0"
+        "libzip/1.8.0",
+        "spdlog/1.10.0"
     )
 
     def set_version(self):

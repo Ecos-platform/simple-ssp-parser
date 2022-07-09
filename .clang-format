@@ -30,7 +30,7 @@ IncludeCategories:
     Priority: 10
   - Regex:      '^[<"]ssp[/.]'
     Priority:   20
-  - Regex:      '^[<"](pugixml|zip)[/.]'
+  - Regex:      '^[<"](spdlog|pugixml|zip)[/.]'
     Priority:   30
   - Regex:      '^"'
     Priority:   10

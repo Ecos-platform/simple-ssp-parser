@@ -52,7 +52,7 @@ target_include_directories(ssp
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}"
         )
-target_link_libraries(ssp PUBLIC CONAN_PKG::pugixml PRIVATE CONAN_PKG::libzip)
+target_link_libraries(ssp PUBLIC CONAN_PKG::pugixml PRIVATE CONAN_PKG::libzip CONAN_PKG::spdlog)
 if (UNIX)
     target_link_libraries(ssp INTERFACE stdc++fs)
 endif ()

@@ -60,8 +60,8 @@ std::vector<Connection> parse_connections(
 
 Connector parse_connector(const pugi::xml_node& node)
 {
-    const auto connectorName = node.attribute("name").as_string();
-    const auto connectorKind = node.attribute("kind").as_string();
+    const std::string connectorName = node.attribute("name").as_string();
+    const std::string connectorKind = node.attribute("kind").as_string();
     Connector connector = {connectorName, connectorKind};
     if (node.child("ssc:Real")) {
         connector.type.value = 0.;
@@ -150,8 +150,8 @@ parse_parameter_bindings(const fs::path& dir, const pugi::xml_node& node)
 
 Component parse_component(const fs::path& dir, const pugi::xml_node& node)
 {
-    const auto componentName = node.attribute("name").as_string();
-    const auto componentSource = node.attribute("source").as_string();
+    const std::string componentName = node.attribute("name").as_string();
+    const std::string componentSource = node.attribute("source").as_string();
     const auto connectors = parse_connectors(node.child("ssd:Connectors"));
     const auto parameterSets = parse_parameter_bindings(dir, node.child("ssd:ParameterBindings"));
     return {componentName, componentSource, connectors, parameterSets};
