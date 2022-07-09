@@ -287,7 +287,7 @@ fs::path ssp::SystemStructureDescription::dir() const
     return pimpl_->dir_;
 }
 
-std::shared_ptr<temp_dir> ssp::SystemStructureDescription::get_temp_dir()
+std::shared_ptr<temp_dir> ssp::SystemStructureDescription::get_temp_dir() const
 {
     return pimpl_->tmp_;
 }
