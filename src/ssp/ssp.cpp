@@ -70,19 +70,19 @@ Parameter parse_parameter(const pugi::xml_node& node)
     pugi::xml_node typeNode;
     if (node.child("ssv:Real")) {
         typeNode = node.child("ssv:Real");
-        const auto value = typeNode.attribute("value").as_double();
+        const double value = typeNode.attribute("value").as_double();
         parameter.type.value = value;
     } else if (node.child("ssv:Integer")) {
         typeNode = node.child("ssv:Integer");
-        const auto value = typeNode.attribute("value").as_int();
+        const int value = typeNode.attribute("value").as_int();
         parameter.type.value = value;
     } else if (node.child("ssv:Boolean")) {
         typeNode = node.child("ssv:Boolean");
-        const auto value = typeNode.attribute("value").as_bool();
+        const bool value = typeNode.attribute("value").as_bool();
         parameter.type.value = value;
     } else if (node.child("ssv:String")) {
         typeNode = node.child("ssv:String");
-        const auto value = typeNode.attribute("value").as_string();
+        const std::string value = typeNode.attribute("value").as_string();
         parameter.type.value = value;
     } else {
         throw std::runtime_error("Unknown XML node in ssv:Parameter encountered!");
