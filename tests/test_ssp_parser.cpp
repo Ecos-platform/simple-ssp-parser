@@ -70,21 +70,28 @@ void checkSystemStructure(const SystemStructureDescription& ssd)
 
 TEST_CASE("test_ssp_parser_archive")
 {
-    std::shared_ptr<temp_dir> tmp;
+    fs::path temporal;
 
     {
-        const auto quarterTruckArchive = "../data/ssp/quarter_truck/quarter-truck.ssp";
-        SystemStructureDescription desc(quarterTruckArchive);
-        checkSystemStructure(desc);
-        tmp = desc.get_temp_dir();
+        std::shared_ptr<temp_dir> tmp;
 
-        const auto& groundComponent = desc.system.elements.components.at("ground");
-        const auto groundFmu = desc.file(groundComponent.source);
-        REQUIRE(fs::exists(groundFmu));
-        REQUIRE(groundFmu.extension().string() == ".fmu");
+        {
+            const auto quarterTruckArchive = "../data/ssp/quarter_truck/quarter-truck.ssp";
+            SystemStructureDescription desc(quarterTruckArchive);
+            checkSystemStructure(desc);
+            tmp = desc.get_temp_dir();
+            temporal = tmp->path();
+
+            const auto& groundComponent = desc.system.elements.components.at("ground");
+            const auto groundFmu = desc.file(groundComponent.source);
+            REQUIRE(fs::exists(groundFmu));
+            REQUIRE(groundFmu.extension().string() == ".fmu");
+        }
+
+        REQUIRE(fs::exists(temporal));
     }
 
-    REQUIRE(!tmp->path().empty());
+    REQUIRE(!fs::exists(temporal));
 }
 
 TEST_CASE("test_ssp_parser_folder")

@@ -13,6 +13,7 @@ class temp_dir
 {
 private:
     const fs::path path_;
+    bool deleteTemporalFolder_{true};
 
 public:
     explicit temp_dir(const std::string& name);
@@ -22,6 +23,10 @@ public:
     [[nodiscard]] fs::path path()
     {
         return path_;
+    }
+
+    void set_delete_temp_dir_on_destruction(bool flag) {
+        deleteTemporalFolder_ = flag;
     }
 
     ~temp_dir();

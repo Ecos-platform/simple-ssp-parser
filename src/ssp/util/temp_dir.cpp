@@ -18,10 +18,12 @@ temp_dir::temp_dir(const std::string& name)
 
 temp_dir::~temp_dir()
 {
-    std::error_code status;
-    fs::remove_all(path_, status);
-    if (status) {
-        std::cerr << "Failed to remove temp folder '" << path_.string() << "': " << status.message()
-                  << std::endl;
+    if (deleteTemporalFolder_) {
+        std::error_code status;
+        fs::remove_all(path_, status);
+        if (status) {
+            std::cerr << "Failed to remove temp folder '" << path_.string() << "': " << status.message()
+                      << std::endl;
+        }
     }
 }

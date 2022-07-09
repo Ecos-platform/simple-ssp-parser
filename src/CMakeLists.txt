@@ -36,6 +36,7 @@ set(sources
         "ssp/ssp.cpp"
         "ssp/util/temp_dir.cpp"
         "ssp/util/unzipper.cpp"
+        "ssp/util/uuid.cpp"
         )
 
 
