@@ -46,6 +46,7 @@ set(sources
 
 add_library(ssp ${sources} ${publicHeadersFull})
 target_compile_features(ssp PUBLIC "cxx_std_17")
+set_property(TARGET ssp PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(ssp
         PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>"
