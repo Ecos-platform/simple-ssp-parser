@@ -8,12 +8,11 @@ on: [push, workflow_dispatch]
 
 jobs:
   cmake-on-linux:
-    name: cmake
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04]
+        os: [ubuntu-20.04]
         build_type: [Debug, Release]
 
     steps:
@@ -33,7 +32,6 @@ jobs:
 
 
   cmake-on-windows:
-    name: cmake
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
