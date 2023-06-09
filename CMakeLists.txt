@@ -40,21 +40,9 @@ set(SSP_EXPORT_TARGET "${PROJECT_NAME}-targets")
 # Dependencies
 # ==============================================================================
 
-if (CONAN_EXPORTED) # in conan local cache
-    # standard conan installation, deps will be defined in conanfile.py
-    # and not necessary to call conan again, conan is already running
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup(TARGETS)
-else ()
-
-    include(cmake/conan.cmake)
-
-    conan_cmake_run(
-            CONANFILE conanfile.py
-            BUILD missing
-            BASIC_SETUP CMAKE_TARGETS)
-
-endif ()
+find_package(spdlog CONFIG REQUIRED)
+find_package(libzip CONFIG REQUIRED)
+find_package(pugixml CONFIG REQUIRED)
 
 if (SSP_BUILD_TESTS)
     Include(FetchContent)

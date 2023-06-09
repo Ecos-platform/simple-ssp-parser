@@ -5,25 +5,14 @@ the [System Structure and Parameterization](https://ssp-standard.org/) standard.
 
 ### Building
 
-simple-ssp-parser uses [conan](https://conan.io/) under-the-hood for managing dependencies:
+#### vcpkg (using manifest mode)
+Call CMake with:
 
 ```
-pip install conan
+-DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake
 ```
 
 Then call CMake as usual.
-
-### Installing
-
-`simple-ssp-parser` is available through the conan remote ais:
-
-`conan remote add ais https://ais.jfrog.io/artifactory/api/conan/ais-conan-local`
-
-Then add a dependency to: </br>
-`simple-ssp-parser/<version>@ais/stable` (stable channel -> releases) </br>
-`simple-ssp-parser/<version>@ais/testing` (development builds -> master) </br>
-`simple-ssp-parser/<version>@ais/testing-<branch>` (development builds -> branches)
-
 
 
 ### Usage
