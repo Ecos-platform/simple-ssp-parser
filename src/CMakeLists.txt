@@ -53,7 +53,7 @@ target_include_directories(ssp
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}"
         )
-target_link_libraries(ssp PUBLIC pugixml::shared pugixml::pugixml PRIVATE libzip::zip spdlog::spdlog)
+target_link_libraries(ssp PUBLIC pugixml::pugixml PRIVATE libzip::zip spdlog::spdlog)
 if (UNIX)
     target_link_libraries(ssp INTERFACE stdc++fs)
 endif ()
