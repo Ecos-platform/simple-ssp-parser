@@ -12,7 +12,7 @@ Call CMake with:
 -DCMAKE_TOOLCHAIN_FILE=[path to vcpkg]/scripts/buildsystems/vcpkg.cmake
 ```
 
-Then call CMake as usual.
+Then invoke CMake as usual.
 
 
 ### Usage
