@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/version.txt" projectVersion)
-project(ssp VERSION ${projectVersion})
+project(simple-ssp VERSION ${projectVersion})
 message("Current ${PROJECT_NAME} version: ${CMAKE_PROJECT_VERSION}\n")
 
 # ==============================================================================
@@ -17,24 +17,12 @@ option(SSP_BUILD_TESTS "Build tests" ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
 endif()
-
-# Prepare for export and installation.
-set(SSP_HEADER_INSTALL_DIR "include")
-if (WIN32)
-    set(SSP_CMAKE_INSTALL_DIR "cmake")
-else ()
-    set(SSP_CMAKE_INSTALL_DIR "share/${PROJECT_NAME}/cmake")
-endif ()
-
-set(SSP_INSTALL_DESTINATIONS
-        ARCHIVE DESTINATION "lib"
-        LIBRARY DESTINATION "lib"
-        RUNTIME DESTINATION "bin"
-        INCLUDES DESTINATION "${SSP_HEADER_INSTALL_DIR}")
-set(SSP_EXPORT_TARGET "${PROJECT_NAME}-targets")
 
 # ==============================================================================
 # Dependencies
@@ -74,29 +62,24 @@ endif ()
 # Exports and remaining installation
 # ==============================================================================
 
-install(
-        EXPORT "${SSP_EXPORT_TARGET}"
-        DESTINATION "${SSP_CMAKE_INSTALL_DIR}"
-        NAMESPACE "${PROJECT_NAME}::"
-)
 
-include(CMakePackageConfigHelpers)
-
-# Generate and install package-config file.
-set(configFile "${CMAKE_BINARY_DIR}/${PROJECT_NAME}-config.cmake")
-set(targetsFile "${SSP_CMAKE_INSTALL_DIR}/${SSP_EXPORT_TARGET}.cmake")
-configure_package_config_file(
-        "${CMAKE_SOURCE_DIR}/cmake/project-config.cmake.in"
-        "${configFile}"
-        INSTALL_DESTINATION "${SSP_CMAKE_INSTALL_DIR}"
-        PATH_VARS targetsFile
-)
-install(FILES "${configFile}" DESTINATION "${SSP_CMAKE_INSTALL_DIR}")
-
-# Generate and install package-version file
-set(versionFile "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake")
+configure_package_config_file(cmake/config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/simple-ssp
+        NO_SET_AND_CHECK_MACRO)
 write_basic_package_version_file(
-        "${versionFile}"
-        VERSION "${PROJECT_VERSION}"
-        COMPATIBILITY "SameMajorVersion")
-install(FILES "${versionFile}" DESTINATION "${SSP_CMAKE_INSTALL_DIR}")
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config-version.cmake
+        VERSION ${CMAKE_PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion)
+install(
+        FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config-version.cmake
+        DESTINATION
+        ${CMAKE_INSTALL_DATADIR}/simple-ssp)
+
+install(TARGETS ssp EXPORT simple-ssp-targets)
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT simple-ssp-targets
+        NAMESPACE simple_ssp::
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/simple-ssp)
