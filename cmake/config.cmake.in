@@ -1,6 +1,7 @@
 @PACKAGE_INIT@
-include ("@PACKAGE_targetsFile@")
 
 include(CMakeFindDependencyMacro)
 
-list(REMOVE_AT CMAKE_MODULE_PATH -1)
+find_dependency(spdlog CONFIG REQUIRED)
+find_dependency(libzip CONFIG REQUIRED)
+find_dependency(pugixml CONFIG REQUIRED)
