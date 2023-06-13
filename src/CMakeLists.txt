@@ -44,16 +44,16 @@ set(sources
 # targets
 # ==============================================================================
 
-add_library(ssp ${sources} ${publicHeadersFull})
-target_compile_features(ssp PUBLIC "cxx_std_17")
-set_property(TARGET ssp PROPERTY POSITION_INDEPENDENT_CODE ON)
-target_include_directories(ssp
+add_library(simplessp ${sources} ${publicHeadersFull})
+target_compile_features(simplessp PUBLIC "cxx_std_17")
+set_property(TARGET simplessp PROPERTY POSITION_INDEPENDENT_CODE ON)
+target_include_directories(simplessp
         PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>"
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}"
         )
-target_link_libraries(ssp PUBLIC pugixml::pugixml PRIVATE libzip::zip spdlog::spdlog)
+target_link_libraries(simplessp PUBLIC pugixml::pugixml PRIVATE libzip::zip spdlog::spdlog)
 if (UNIX)
-    target_link_libraries(ssp INTERFACE stdc++fs)
+    target_link_libraries(simplessp INTERFACE stdc++fs)
 endif ()

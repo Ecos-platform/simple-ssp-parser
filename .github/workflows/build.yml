@@ -12,14 +12,14 @@ jobs:
         build_type: [Debug, Release]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Restore artifacts, or run vcpkg, build (and cache artifacts as post step)
         uses: lukka/run-vcpkg@v10
         id: runvcpkg
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '12c2a93b4007612b5ffa980c9d2235eb0bcac10f'
+          vcpkgGitCommitId: '1ba9a2591f15af5900f2ce2b3e2bf31771e3ac48'
           vcpkgJsonGlob: 'vcpkg.json'
           appendedCacheKey: vcpkginstall
 
@@ -43,14 +43,14 @@ jobs:
         build_type: [Debug, Release]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Restore artifacts, or run vcpkg, build (and cache artifacts as post step)
         uses: lukka/run-vcpkg@v10
         id: runvcpkg
         with:
           vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '12c2a93b4007612b5ffa980c9d2235eb0bcac10f'
+          vcpkgGitCommitId: '1ba9a2591f15af5900f2ce2b3e2bf31771e3ac48'
           vcpkgJsonGlob: 'vcpkg.json'
           appendedCacheKey: vcpkginstall
 
