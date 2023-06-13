@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/version.txt" projectVersion)
-project(simplessp VERSION ${projectVersion})
+project("simple-ssp" VERSION ${projectVersion})
 message("Current ${PROJECT_NAME} version: ${CMAKE_PROJECT_VERSION}\n")
 
 # ==============================================================================
@@ -64,22 +64,22 @@ endif ()
 
 
 configure_package_config_file(cmake/config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/simplessp-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/simplessp
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_DATADIR}/simple-ssp
         NO_SET_AND_CHECK_MACRO)
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/simplessp-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config-version.cmake
         VERSION ${CMAKE_PROJECT_VERSION}
         COMPATIBILITY SameMajorVersion)
 install(
         FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/simplessp-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/simplessp-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/simple-ssp-config-version.cmake
         DESTINATION
-        ${CMAKE_INSTALL_DATADIR}/simplessp)
+        ${CMAKE_INSTALL_DATADIR}/simple-ssp)
 
-install(TARGETS simplessp EXPORT simplessp-targets)
+install(TARGETS simplessp EXPORT simple-ssp-targets)
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(EXPORT simplessp-targets
-        NAMESPACE simplessp::
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/simplessp)
+install(EXPORT simple-ssp-targets
+        NAMESPACE simple_ssp::
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/simple-ssp)
