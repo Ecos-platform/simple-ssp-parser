@@ -46,10 +46,11 @@ set(sources
 
 add_library(simplessp ${sources} ${publicHeadersFull})
 target_compile_features(simplessp PUBLIC "cxx_std_17")
-set_property(TARGET simplessp PROPERTY POSITION_INDEPENDENT_CODE ON)
+#set_property(TARGET simplessp PROPERTY POSITION_INDEPENDENT_CODE ON)
 target_include_directories(simplessp
         PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}"
         )
